@@ -9,6 +9,8 @@ let array = [];
 let globalNumber = 1;
 const buttons = document.querySelector('.buttons');
 changeValueButton(Array.from(buttons.children)[8]);
+const arrowRight = document.querySelector('.arrow-right');
+const arrowLeft = document.querySelector('.arrow-left');
 
 const arrayMoves = [
   { 28: 'Action' },
@@ -51,7 +53,6 @@ function changeValue(array) {
 
 async function fetchMove(number = 1) {
   globalNumber = number;
-  console.log(globalNumber);
   try {
     array = [];
     let response = await axios.get(`${url}&page=${number}`);
@@ -135,7 +136,7 @@ buttons.addEventListener('click', event => {
 
   container.innerHTML = '';
   //Przycisk <-
-  if (event.target === element0) {
+  if (event.target === element0 || event.target === arrowLeft) {
     if (values[5].textContent === '6') {
       buttons.children[2].innerHTML = '';
       buttons.children[2].textContent = '3';
@@ -160,7 +161,7 @@ buttons.addEventListener('click', event => {
     fetchMove(globalNumber - 1);
   }
   //przycisk ->
-  else if (event.target === element6) {
+  else if (event.target === element6 || event.target === arrowRight) {
     if (element5.textContent !== '20' && globalNumber > 5) {
       values.map(element => {
         if (parseInt(element.textContent)) {
